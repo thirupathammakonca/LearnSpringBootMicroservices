@@ -1,0 +1,42 @@
+spring:
+  cloud:
+    gateway:
+       routes:
+          - id: ORDERSERVICE
+            uri: lb://ORDERSERVICE
+            predicates: 
+              - Path=/order/**
+            filters: 
+              - name: CircuitBreaker
+                args: 
+                  name: ORDERSERVICE
+                  fallbackuri: forward:/orderServiceFallBack
+                  
+          - id: PRODUCTSERVICE
+            uri: lb://PRODUCTSERVICE
+            predicates:
+              - Path=/product/**
+            filters: 
+              - name: CircuitBreaker
+                args: 
+                  name: PRODUCTSERVICE
+                  fallbackuri: forward:/productServiceFallBack
+            
+          - id: PAYMENTSERVICE
+            uri: lb://PAYMENTSERVICE
+            predicates:
+              - Path=/payment/**
+            filters: 
+              - name: CircuitBreaker
+                args: 
+                  name: PAYMENTSERVICE
+                  fallbackuri: forward:/paymentServiceFallBack
+                  
+                  
+okta:
+  oauth2:
+    audience: 
+    issuer: 
+    client-id: 
+    client-secret: 
+    scopes: openid, email, profile, offline_access    
