@@ -33,10 +33,3 @@ spring:
                   fallbackuri: forward:/paymentServiceFallBack
                   
                   
-okta:
-  oauth2:
-    audience: 
-    issuer: 
-    client-id: 
-    client-secret: 
-    scopes: openid, email, profile, offline_access    
